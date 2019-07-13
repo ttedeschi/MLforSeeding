@@ -13,9 +13,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import make_gaussian_quantiles
 from sklearn.metrics import roc_auc_score, roc_curve
 from sklearn.ensemble import RandomForestClassifier
-!curl http://opendata-dev.web.cern.ch/record/12320/files/TTbar_13TeV_PU50_PixelSeeds_pixelTracksDoublets_h5_file_index.txt -o file_index.txt
-file_list = !(cat file_index.txt)
-print(file_list[0])
+#!curl http://opendata-dev.web.cern.ch/record/12320/files/TTbar_13TeV_PU50_PixelSeeds_pixelTracksDoublets_h5_file_index.txt -o file_index.txt
+#file_list = !(cat file_index.txt)
+#print(file_list[0])
 remote_data = "./"
 data_files = [remote_data + "/" + f for f in os.listdir(remote_data) if "Doublets" in f and f.endswith("h5")]
 print(data_files)
