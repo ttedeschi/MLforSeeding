@@ -37,8 +37,10 @@ data = pd.read_hdf(data_files[0])
 print("file read done")
 true = (data["label"]==1.0)
 fake = (data["label"]==-1.0)
+
 print("Number of doublets: %d"%len(data))
-data.head()
+print(data.head())
+
 sig = data[true]
 bkg = data[fake].sample(n=len(sig))
 data = pd.concat([sig,bkg]).sample(frac=1.0)
@@ -47,7 +49,19 @@ print("New number of doublets: %d"%len(data))
 X = data[featureLabs].values
 Y = data["label"] == 1.0
 
+print("Features thata will be used: ")
+print(featureLabs)
+
+print("X shape: ", X.shape)
+print("Y shape: ", Y.shape)
+
+print(X[0])
+print(Y.values[0])
+
+
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.5, random_state=42)
+
+#print(Y_train)
 
 bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=3),
                          algorithm="SAMME",
