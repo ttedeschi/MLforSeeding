@@ -1,11 +1,15 @@
-import sys
 import urllib.request
+import sys
 import os
+
 import pandas as pd
 import numpy as np
+
 from time import time
 from dataset import *
+
 import matplotlib.pyplot as plt
+
 from matplotlib import colors
 from sklearn.model_selection import StratifiedKFold
 from sklearn.ensemble import AdaBoostClassifier
@@ -14,6 +18,15 @@ from sklearn.datasets import make_gaussian_quantiles
 from sklearn.metrics import roc_auc_score, roc_curve
 from sklearn.ensemble import RandomForestClassifier
 
+from sklearn.model_selection import StratifiedKFold
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import make_gaussian_quantiles
+from sklearn.metrics import roc_auc_score, roc_curve
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+
 #!curl http://opendata-dev.web.cern.ch/record/12320/files/TTbar_13TeV_PU50_PixelSeeds_pixelTracksDoublets_h5_file_index.txt -o file_index.txt
 #file_list = !(cat file_index.txt)
 #print(file_list[0])
@@ -21,6 +34,7 @@ remote_data = "./"
 data_files = [remote_data + "/" + f for f in os.listdir(remote_data) if "Doublets" in f and f.endswith("h5")]
 print(data_files)
 data = pd.read_hdf(data_files[0])
+print("file read done")
 true = (data["label"]==1.0)
 fake = (data["label"]==-1.0)
 print("Number of doublets: %d"%len(data))
@@ -29,15 +43,6 @@ sig = data[true]
 bkg = data[fake].sample(n=len(sig))
 data = pd.concat([sig,bkg]).sample(frac=1.0)
 print("New number of doublets: %d"%len(data))
-
-
-from sklearn.model_selection import StratifiedKFold
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.datasets import make_gaussian_quantiles
-from sklearn.metrics import roc_auc_score, roc_curve
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
 
 X = data[featureLabs].values
 Y = data["label"] == 1.0
@@ -129,9 +134,4 @@ print ("Efficiency @ 0.95 Fake Rejection  : %.2f " % (effNineEight))
 print ("Efficiency @ 0.98 Fake Rejection  : %.2f " % (effNineFive))
 print ("Efficiency @ 0.99 Fake Rejection  : %.2f " % (effNineNine))
 print ("==========================================")
-
-
-
-
-
 
