@@ -90,6 +90,8 @@ ax.tick_params(axis = 'both', which = 'major', labelsize = 16)
 plt.xlabel("BDT Score",fontsize=15)
 plt.ylabel("candidates/0.01",fontsize=15)
 
+plt.savefig("finalplot.png")
+
 test_roc = roc_auc_score(Y_test, twoclass_output)
 fp, tp, _ = roc_curve(Y_test,twoclass_output)
 
