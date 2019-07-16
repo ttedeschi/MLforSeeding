@@ -30,11 +30,25 @@ from sklearn.model_selection import train_test_split
 #!curl http://opendata-dev.web.cern.ch/record/12320/files/TTbar_13TeV_PU50_PixelSeeds_pixelTracksDoublets_h5_file_index.txt -o file_index.txt
 #file_list = !(cat file_index.txt)
 #print(file_list[0])
+
+if len(sys.argv) != 2:
+  print("usage: ", sys.argv[1], " rowstoread (if -1 read alla file) ")
+  exit(1)
+
+numofrows = int(sys.argv[1])
+
 remote_data = "./"
 data_files = [remote_data + "/" + f for f in os.listdir(remote_data) if "Doublets" in f and f.endswith("h5")]
 print(data_files)
-data = pd.read_hdf(data_files[0])
+
+data = None
+if numofrows < 0:
+  data = pd.read_hdf(data_files[0])
+else:
+  data = pd.read_hdf(data_files[0], stop=numofrows)
+
 print("file read done")
+
 true = (data["label"]==1.0)
 fake = (data["label"]==-1.0)
 
@@ -48,6 +62,14 @@ print("New number of doublets: %d"%len(data))
 
 X = data[featureLabs].values
 Y = data["label"] == 1.0
+
+if numofrows > 0:
+  print(data["label"].values)
+  print(Y.values)
+
+#plt.plot(data["label"].values)
+#plt.hist(data["label"].values, bins=90)
+#plt.show()
 
 print("Features thata will be used: ")
 print(featureLabs)
