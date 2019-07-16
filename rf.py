@@ -60,10 +60,28 @@ if __name__ == "__main__":
     print('Testing Features Shape:', X_test.shape)
     print('Testing Labels Shape:', Y_test.shape)
 
+    print('Start training')
     numofdecisiontree = 1000
     rf = RandomForestClassifier(n_estimators = numofdecisiontree)
     rf.fit(X_train, Y_train)
+    print('Training done')
 
     Y_pred = rf.predict(X_test)
-    
+
     print("Accuracy:",metrics.accuracy_score(Y_test, Y_pred))
+
+    Y_pred = np.where(Y_pred == True, 1, Y_pred)
+    Y_pred = np.where(Y_pred == False, 0, Y_pred)
+
+    Y_test = np.where(Y_test == True, 1, Y_test)
+    Y_test = np.where(Y_test == False, 0, Y_test)
+
+    #plt.plot(Y_pred)
+    #plt.plot(Y_test)
+
+    diff = Y_pred - Y_test
+
+    plt.plot(diff)
+
+    plt.title("RF output diff",fontsize=15,fontweight="bold")
+    plt.savefig("finalplot.png")
