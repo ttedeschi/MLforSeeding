@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 if __name__ == "__main__":
     
     if len(sys.argv) != 2:
-        print("usage: ", sys.argv[1], " rowstoread (if -1 read alla file) ")
+        print("usage: ", sys.argv[0], " rowstoread (if -1 read alla file) ")
         exit(1)
 
     numofrows = int(sys.argv[1])

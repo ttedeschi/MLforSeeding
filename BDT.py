@@ -26,7 +26,7 @@ if __name__ == "__main__":
    #print(file_list[0])
    
    if len(sys.argv) != 2:
-     print("usage: ", sys.argv[1], " rowstoread (if -1 read alla file) ")
+     print("usage: ", sys.argv[0], " rowstoread (if -1 read alla file) ")
      exit(1)
    
    numofrows = int(sys.argv[1])
