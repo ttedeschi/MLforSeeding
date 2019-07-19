@@ -76,8 +76,8 @@ if __name__ == "__main__":
     Y_test = np.where(Y_test == True, 1, Y_test)
     Y_test = np.where(Y_test == False, 0, Y_test)
 
-    #plt.plot(Y_pred)
-    #plt.plot(Y_test)
+    plt.plot(Y_pred)
+    plt.plot(Y_test)
 
     diff = Y_pred - Y_test
 
